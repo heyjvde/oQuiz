@@ -13,6 +13,7 @@
   - une question possède plusieurs choix de réponse
   - une question n'a qu'une seule bonne réponse
 - l'application permet de répondre aux questions d'un quiz et d'obtenir un score avec un récap
+- on répond à toutes les questions d'un quiz d'un coup sur une même page
 - gestion de l'authentification (s'inscrire et se connecter)
 
 ## ce que ça ne fait pas (sert à poser les limites)
