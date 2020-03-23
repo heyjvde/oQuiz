@@ -4,7 +4,7 @@
 
 - quizzes
   - titre
-  - thématique
+  - thématique: finalement le client n'en veut plus
   - sujets
   - auteur
   - chaque question a un niveau de difficulté
