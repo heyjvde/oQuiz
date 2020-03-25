@@ -4,7 +4,6 @@ class Question extends CoreModel{
     question;
     anecdote;
     wiki;
-    status;
 
     constructor(obj){
         super(obj);
@@ -12,6 +11,7 @@ class Question extends CoreModel{
         this.question = obj.question;
         this.anecdote = obj.anecdote;
         this.wiki = obj.wiki;
-        this.status = obj.status;
     };
 };
+
+module.exports = Question;

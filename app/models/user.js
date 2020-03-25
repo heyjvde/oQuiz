@@ -5,7 +5,6 @@ class User extends CoreModel{
     password;
     firstname;
     lastname;
-    status;
 
     constructor(obj){
         super(obj);
@@ -14,6 +13,7 @@ class User extends CoreModel{
         this.password = obj.password;
         this.firstname = obj.firstname;
         this.lastname = obj.lastname;
-        this.status = obj.status;
     };
 };
+
+module.exports = User;
