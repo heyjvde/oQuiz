@@ -52,6 +52,54 @@ class CoreModel{
             };
         });
     };
+
+    update(callback){
+        // on doit générer la requête de manière dynamique en fonction de l'objet qui appelle la méthode
+        let props = [];
+        let values = [];
+        let dollarIndex = 1;
+        
+        // on boucle sur toutes les propriétés de l'objet qui appelle la méthode (this)
+        for(let prop in this){
+            // on doit ignorer les propriétés qui ne doivent pas être modifiées: on le fait avec une condition
+            if(["id", "created_at", "updated_at", "tableName"].includes(prop)){
+                continue;
+            };
+            
+            // on crée une chaîne de caractère qui contient l'égalité pour chaque propriété d'une instance
+            let charString = `"${prop}" = $${dollarIndex}`;
+            dollarIndex++;
+
+            // on ajoute la string au tableau props
+            props.push(charString);
+
+            // au passage, on peut remplir le tableau values pour être sûr que "props" et "values" seront dans le même ordre
+            values.push(this[prop]);
+        };
+
+        // une fois les propriétés dynamiques inclues à la requête, on rajoute les propriété qui ne bougent pas
+        prop.push(`"updated_at" = NOW()`);
+
+        let text = `UPDATE "${this.tableName}" SET ${props} WHERE "id" = $${dollarIndex} RETURNING *`;
+
+        // comme on ajoute id = $x à la fin de la requête, il faut qu'on ajoute la valeur correspondante dans values
+        values.push(this.id);
+
+        // maintenant qu'on a généré notre requête dynamique on la stock dans une query
+        const query = {text, values};
+
+        // et on exécute
+        client.query(query, values, (err, result) => {
+            if(err){
+                callback(err, null);
+            }else{
+                const data = result.rows[0];
+                this.updated_at = data.updated_at;
+
+                callback(null, this);
+            };
+        });
+    };
 };
 
 module.exports = CoreModel;

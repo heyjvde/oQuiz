@@ -91,24 +91,6 @@ class Level extends CoreModel{
             };
         });
     };
-
-    // on veut pouvoir mettre à jour les données de l'instance courante
-    update(callback){
-        const query = `UPDATE "levels" SET "name" = $1, "status" = $2, "updated_at" = NOW() WHERE "id" = $3 RETURNING *`;
-        const values = [this.name, this.status, this.id];
-
-        client.query(query, values, (err, result) => {
-            if(err){
-                callback(err, null);
-            }else{
-                // on récupère les infos grâce à RETURNING
-                const data = result.rows[0];
-                this.updated_at = data.updated_at;
-
-                callback(null, this);
-            };
-        });
-    };
 };
 
 module.exports = Level;

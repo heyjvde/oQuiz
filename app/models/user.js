@@ -73,23 +73,6 @@ class User extends CoreModel{
             };
         });
     };
-
-    // on update un user
-    update(callback){
-        const query = `UPDATE "app_users" SET "email" = $1, "password" = $2, "firstname" = $3, "lastname" = $4, "status" = $5, "updated_at" = NOW() WHERE "id" = $6 RETURNING *`;
-        const values = [this.email, this.password, this.firstname, this.lastname, this.status, this.id];
-
-        client.query(query, values, (err, result) => {
-            if(err){
-                callback(err, null);
-            }else{
-                const data = result.rows[0];
-                this.updated_at = data.updated_at;
-
-                callback(null, this);
-            };
-        });
-    };
 };
 
 module.exports = User;
