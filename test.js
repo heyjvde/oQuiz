@@ -36,17 +36,21 @@ User.getOne(3, (err, user) => {
 });
 */
 
-/*
 //* on crée une nouvelle instance
-const gordon = new User({email: "gordon@oclock.io", password: "azerty123", firstname: "Gordon", lastname: "Zola"});
+const gordon = new User({
+    email: "gordon@oclock.io", 
+    password: "azerty123", 
+    firstname: "Gordon", 
+    lastname: "Zola"
+});
 /// qu'on va insérer dans la bdd
 gordon.insert((err, gordon) => {
     /// avec ma const en paramètre, on peut renvoyer quelque chose en se servant des infos du level qui vient d'être créé et inséré
     console.log(err);
     console.log(gordon);
 });
-*/
 
+/*
 //* on update puis supprime une instance
 User.getOne(4, (err, gordon) => {
     if(err){
@@ -68,3 +72,4 @@ User.getOne(4, (err, gordon) => {
         });
     };
 });
+*/

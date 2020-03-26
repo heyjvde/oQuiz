@@ -3,7 +3,7 @@ const client = require("../database");
 
 class Level extends CoreModel{
     name;
-    tableName = "levels";
+    static tableName = "levels";
 
     constructor(obj){
         super(obj);
@@ -43,51 +43,6 @@ class Level extends CoreModel{
                 // une fois tous les résultats transformés, on transmet la "vraie" liste de résultats au callback
                 // null indique au callback qu'il n'y a pas d'erreur
                 callback(null, finalResult);
-            };
-        });
-    };
-
-    // maintenant on va récupérer un level
-    static getOne(id, callback){
-        // créer la requête
-        const query = `SELECT * FROM "levels" WHERE "id" = $1`;
-        const values = [id];
-
-        // exécuter la requête
-        client.query(query, values, (err, result) => {
-            if(err){
-              callback(err, null);
-            }else{
-                // transformer la requête
-                const level = new Level(result.rows[0]);
-                // version longue:
-                // const obj = result.rows[0];
-                // const level = new Level(obj);
-
-                callback(null, level);
-            };
-        });
-    };
-
-    // on veut pouvoir insérer l'instance qui l'appelle (this) dans la bdd
-    insert(callback){
-        const query = `INSERT INTO "levels" ("name") VALUES ($1) RETURNING *`; // RETURNING permet de renvoyer la ou les lignes insérées
-        const values = [this.name];
-
-        client.query(query, values, (err, result) => {
-            if(err){
-                callback(err, null);
-            }else{
-                // grâce à RETURNING on a récupéré les lignes insérées dans result.rows
-                // et on va les utiliser pour mettre à jour les informations contenues dans this
-                const data = result.rows[0];
-                this.id = data.id;
-                this.status = data.status;
-                this.created_at = data.created_at;
-                this.updated_at = data.updated_at;
-
-                // on envoie this dans le callback pour pouvoir utiliser les informations mises à jour
-                callback(null, this);
             };
         });
     };
