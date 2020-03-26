@@ -3,6 +3,7 @@ const client = require("../database");
 
 class Level extends CoreModel{
     name;
+    tableName = "levels";
 
     constructor(obj){
         super(obj);
@@ -105,21 +106,6 @@ class Level extends CoreModel{
                 this.updated_at = data.updated_at;
 
                 callback(null, this);
-            };
-        });
-    };
-
-    // enfin on veut pouvoir delete l'instance courante de la bdd
-    delete(callback){
-        const query = `DELETE FROM "levels" WHERE "id" = $1`;
-        const values = [this.id];
-
-        client.query(query, values, (err, result) => {
-            if(err){
-                callback(err, null);
-            }else{
-                // comme on est en train de supprimer this on ne peut pas le renvoyer, on renvoie juste true pour dire que la suppression s'est bien passée
-                callback(null, true);
             };
         });
     };

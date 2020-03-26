@@ -6,6 +6,7 @@ class User extends CoreModel{
     password;
     firstname;
     lastname;
+    tableName = "app_users";
 
     constructor(obj){
         super(obj);
@@ -86,20 +87,6 @@ class User extends CoreModel{
                 this.updated_at = data.updated_at;
 
                 callback(null, this);
-            };
-        });
-    };
-
-    // on supprime un user
-    delete(callback){
-        const query = `DELETE FROM "app_users" WHERE "id" = $1`;
-        const values = [this.id];
-
-        client.query(query, values, (err, result) => {
-            if(err){
-                callback(err, null);
-            }else{
-                callback(null, true);
             };
         });
     };

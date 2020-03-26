@@ -1,8 +1,12 @@
+const client = require("../database");
+
 class CoreModel{
     id;
     status;
     created_at;
     updated_at;
+
+    tableName = "!! ERROR !!" // on défini une propriété pour connaître la table visée dans la bdd que chaque classe fille devra modifier avec la table qui correspond
 
     // plutôt que taper plein de paramètres les uns après les autres à chaque instance, on passe juste un objet
     constructor(obj){
@@ -31,6 +35,22 @@ class CoreModel{
         }else{
             this.id = value;
         };
+    };
+
+    //! méthodes active record
+    delete(callback){
+        const query = {
+            text: `DELETE FROM "${this.tableName}" WHERE "id" = $1`,
+            value: [this.id]
+        };
+
+        client.query(query, (err, result) => {
+            if(err){
+
+            }else{
+
+            };
+        });
     };
 };
 
