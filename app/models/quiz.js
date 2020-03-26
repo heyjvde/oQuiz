@@ -3,6 +3,7 @@ const CoreModel = require("./coreModel");
 class Quiz extends CoreModel{
     title;
     description;
+    static tableName = "quizzes"
 
     constructor(obj){
         super(obj);

@@ -36,50 +36,22 @@ User.getOne(3, (err, user) => {
 });
 */
 
-/*
 //* on crée une nouvelle instance
-const gordon = new User({email: "gordon@oclock.io", password: "azerty123", firstname: "Gordon", lastname: "Zola"});
+const gordon = new User({
+    email: "gordon@oclock.io", 
+    password: "azerty123", 
+    firstname: "Gordon", 
+    lastname: "Zola"
+});
 /// qu'on va insérer dans la bdd
 gordon.insert((err, gordon) => {
     /// avec ma const en paramètre, on peut renvoyer quelque chose en se servant des infos du level qui vient d'être créé et inséré
     console.log(err);
     console.log(gordon);
 });
-*/
 
 /*
-//* on met à jour une instance
-Level.getOne(4, (err, level) => {
-    if(err){
-        console.log(err);
-    };
-
-    /// level est une instance de la classe Level, qui représente celui avec l'id 3
-    /// on change son nom
-    level.name = "Méga dur";
-
-    /// et on le met à jour dans la bdd
-    level.update((err, level) => {
-        /// level doit être à jour
-        console.log(err);
-        console.log(level);
-    });
-});
-*/
-
-/*
-//* on supprime une instance
-Level.getOne(0, (err, level) => {
-    level.delete((err, result) => {
-        if(result){
-            console.log("le level a bien été supprimé");
-        }else{
-            console.log("une erreur s'est produite lors de la suppression");
-        };
-    });
-});
-*/
-
+//* on update puis supprime une instance
 User.getOne(4, (err, gordon) => {
     if(err){
         console.log(err);
@@ -100,3 +72,4 @@ User.getOne(4, (err, gordon) => {
         });
     };
 });
+*/

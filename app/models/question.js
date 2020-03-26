@@ -4,6 +4,7 @@ class Question extends CoreModel{
     question;
     anecdote;
     wiki;
+    static tableName = "questions";
 
     constructor(obj){
         super(obj);
