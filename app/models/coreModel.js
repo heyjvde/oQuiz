@@ -214,8 +214,16 @@ class CoreModel{
         });
     };
     
+    // on veut sauvegarder une instance
     save(callback){
-    
+        // on doit appeler "insert" si l'instance n'existe pas dans la bdd
+        //? comme une instance nouvellement créée n'a pas encore d'id, on vérifie grâce à ça
+        if(this.id){
+            this.update(callback);
+        }else{
+            // sinon on doit appeler "update" si l'instance existe dans la bdd
+            this.insert(callback);
+        };
     };
 };
 

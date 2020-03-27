@@ -79,9 +79,3 @@ User.getOne(4, (err, gordon) => {
     };
 });
 */
-
-
-User.findBy({firstname: "Chuck", lastname: "Zola"}, (err, results) => {
-    console.log(err);
-    console.log(results);
-});
