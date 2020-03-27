@@ -21,21 +21,26 @@ dataMapper.getOneLevel(1, (err, level) => {
 //? active record
 const Level = require("./app/models/level");
 const User = require("./app/models/user");
+const Answer = require("./app/models/answer");
+const Question = require("./app/models/question");
+const Quiz = require("./app/models/quiz");
+const Tag = require("./app/models/tag");
 
 /*
 //* on demande toutes les instances
-Level.getAll((err, levels) => {
-    console.log({err, levels});
+User.getAll((err, users) => {
+    console.log({err, users});
 });
 */
 
 /*
 //* on demande une instance
-User.getOne(3, (err, user) => {
-    console.log({err, user});
+Question.getOne(3, (err, question) => {
+    console.log({err, question});
 });
 */
 
+/*
 //* on crée une nouvelle instance
 const gordon = new User({
     email: "gordon@oclock.io", 
@@ -49,6 +54,7 @@ gordon.insert((err, gordon) => {
     console.log(err);
     console.log(gordon);
 });
+*/
 
 /*
 //* on update puis supprime une instance

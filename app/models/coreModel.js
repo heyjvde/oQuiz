@@ -79,7 +79,7 @@ class CoreModel{
         };
 
         // une fois les propriétés dynamiques inclues à la requête, on rajoute les propriété qui ne bougent pas
-        prop.push(`"updated_at" = NOW()`);
+        props.push(`"updated_at" = NOW()`);
 
         let text = `UPDATE "${this.constructor.tableName}" SET ${props} WHERE "id" = $${dollarIndex} RETURNING *`;
 
@@ -90,7 +90,7 @@ class CoreModel{
         const query = {text, values};
 
         // et on exécute
-        client.query(query, values, (err, result) => {
+        client.query(query, (err, result) => {
             if(err){
                 callback(err, null);
             }else{
@@ -120,18 +120,19 @@ class CoreModel{
             dollarIndex++;
         };
 
-        let text = `INSERT INTO "${this.constructor.tableName}" (${props}) VALUES (${dollars} RETURNING *)`;
+        let text = `INSERT INTO "${this.constructor.tableName}" (${props}) VALUES (${dollars}) RETURNING *`;
 
         const query = {text, values};
 
-        client.query(query, values, (err, result) => {
+        client.query(query, (err, result) => {
             if(err){
                 callback(err, null);
             }else{
                 const data = result.rows[0];
                 this.id = data.id;
-                this.status = data.status;
                 this.created_at = data.created_at;
+                this.status = data.status;
+                this.updated_at = data.updated_at;
 
                 callback(null, this);
             };
@@ -166,12 +167,20 @@ class CoreModel{
 
                 for(let row of result.rows){
                     const model = new this(row);
-                    finalResult.push(user);
+                    models.push(model);
                 };
 
                 callback(null, models);
             };
         });
+    };
+
+    findBy(params, callback){
+
+    };
+    
+    SVGFEFuncAElement(callback){
+    
     };
 };
 
