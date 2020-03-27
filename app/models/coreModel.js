@@ -139,6 +139,7 @@ class CoreModel{
         });
     };
 
+    //! on fait de getOne et getAll une méthode statique pour pouvoir l'appeler sans avoir à créer d'instance
     static getOne(id, callback){
         const query = `SELECT * FROM "${this.tableName}" WHERE "id" = $1`;
         const values = [id];
@@ -175,11 +176,45 @@ class CoreModel{
         });
     };
 
+    // on veut trouver des modèles via des paramètres choisis par l'utilisateur
     findBy(params, callback){
+        let props = ["true"]; // avec true en valeur par défaut, si l'objet est vide la requête renverra tout (comme getAll)
+        let values = [];
+        let dollarIndex = 1;
+        
+        // on va générer une requête dynamique, et pour ça on va boucler sur les propriétés de l'objet params
+        for(let prop in params){
+            // on construit la chaîne des égalités
+            let charString = `"${prop}" = $${dollarIndex}`;
 
+            // et on les push avec leurs valeurs
+            props.push(charString);
+            values.push(params[prop]);
+
+            dollarIndex++;
+        };
+
+        // join() nous permet de joindre les propriétés comme on veut, et ne joindra rien sans retourner derrière s'il n'a rien à join (qu'il n'y a qu'une propriété)
+        let text = `SELECT * FROM ${this.tableName} WHERE ${props.join(" AND ")}`;
+        const query = {text, values};
+
+        client.query(query, (err, result) => {
+            if(err){
+                callback(err, null);
+            }else{
+                const models = [];
+
+                for(let row of result.rows){
+                    const model = new this(row);
+                    models.push(model);
+                };
+
+                callback(null, models);
+            };
+        });
     };
     
-    SVGFEFuncAElement(callback){
+    save(callback){
     
     };
 };
