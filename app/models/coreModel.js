@@ -1,3 +1,5 @@
+//! on va utiliser sequelize, donc on n'utilisera plus coreModel qui devient obsolète
+
 const client = require("../database");
 
 class CoreModel{
