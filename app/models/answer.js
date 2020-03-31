@@ -1,14 +1,19 @@
-const CoreModel = require("./coreModel");
+const Sequelize = require("sequelize");
+const client = require("../database");
 
-class Answer extends CoreModel{
-    description;
-    static tableName = "answers";
+class Answer extends Sequelize.Model{
 
-    constructor(obj){
-        super(obj);
-        
-        this.description = obj.description;
-    };
 };
+
+Answer.init({
+    description: Sequelize.TEXT,
+    status: Sequelize.INTEGER,
+    // on ne défini pas ici les attributs qui servent à faire des associations (ici: questions_id)
+},
+{
+    sequelize: client,
+    tableName: "answers",
+    underscored: true,
+});
 
 module.exports = Answer;
