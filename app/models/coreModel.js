@@ -12,7 +12,7 @@ class CoreModel{
 
     // plutôt que taper plein de paramètres les uns après les autres à chaque instance, on passe juste un objet
     constructor(obj){
-        this.id = obj.status;
+        this.id = obj.id;
         this.status = obj.status;
         this.created_at = obj.created_at;
         this.updated_at = obj.updated_at;
@@ -44,14 +44,14 @@ class CoreModel{
         // pour accéder à la classe d'une instance, on passe par son constructeur
         const query = {
             text: `DELETE FROM "${this.constructor.tableName}" WHERE "id" = $1`,
-            value: [this.id]
+            values: [this.id],
         };
 
         client.query(query, (err, result) => {
             if(err){
-
+                callback(err, null);
             }else{
-
+                callback(null, true); // on renvoie true juste pour dire que la suppression s'est bien passée
             };
         });
     };
@@ -150,9 +150,12 @@ class CoreModel{
             if(err){
                 callback(err, null);
             }else{
+                // on récupère la donnée sélectionnée avec getOne
+                const obj = result.rows[0];
+                
                 // this est toujours le contexte de la méthode (ce qui se trouve à gauche du point) donc quand on lance une méthode statique, on fait "this.méthode"
                 // this représente directement la classe appelée, on peut donc l'utiliser comme un constructeur: new this
-                const entity = new this(result.rows[0]);
+                const entity = new this(obj);
 
                 callback(null, entity);
             };
@@ -179,7 +182,7 @@ class CoreModel{
     };
 
     // on veut trouver des modèles via des paramètres choisis par l'utilisateur
-    findBy(params, callback){
+    static findBy(params, callback){
         let props = ["true"]; // avec true en valeur par défaut, si l'objet est vide la requête renverra tout (comme getAll)
         let values = [];
         let dollarIndex = 1;

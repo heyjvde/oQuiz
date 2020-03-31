@@ -2,12 +2,12 @@
 // https://sequelize.org/v5/manual/associations.html
 
 //? 1. on require tous les modèles
-const Level = require("./app/models/level");
-const User = require("./app/models/user");
-const Answer = require("./app/models/answer");
-const Question = require("./app/models/question");
-const Quiz = require("./app/models/quiz");
-const Tag = require("./app/models/tag");
+const Level = require("./level");
+const User = require("./user");
+const Answer = require("./answer");
+const Question = require("./question");
+const Quiz = require("./quiz");
+const Tag = require("./tag");
 
 //? 2. on défini toutes les associations
 // comme notre foreignKey ne porte pas le nom de la classe qui l'utilise, on lui donne en option avec un alias
@@ -64,18 +64,18 @@ Question.belongsTo(Answer, {
 });
 
 //* quiz <-> tag
-// belongsToMany a des options qu'on doit obligatoirement lui donner
+// belongsToMany a des paramètres qu'on doit obligatoirement lui donner
 Quiz.belongsToMany(Tag, {
     through: "quizzes_has_tags", // on le fait passer par la table de liaison
-    sourceKey: "quizzes_id", // la clé source à appeler dans la table de liaison
+    foreignKey: "quizzes_id", // la clé source à appeler dans la table de liaison
     otherKey: "tags_id", // la clé cible à appeler dans la table de liaison
     as: "tags",
-    timestamps: false,
+    timestamps: false, // si on ne le précise pas, sequelize va essayer de mettre des timestamps dans la table de liaison
 });
 
 Tag.belongsToMany(Quiz, {
     through: "quizzes_has_tags",
-    sourceKey: "tags_id",
+    foreignKey: "tags_id",
     otherKey: "quizzes_id",
     as: "quizzes",
     timestamps: false,

@@ -8,6 +8,9 @@ class User extends Sequelize.Model{
     firstname;
     lastname;
 
+    getFullName() {
+        return this.firstname+" "+this.lastname;
+    };
 };
 
 User.init({
@@ -18,7 +21,7 @@ User.init({
     status: Sequelize.INTEGER,
 },
 {
-    Sequelize: client,
+    sequelize: client,
     tableName: "app_users",
     underscored: true,
 });

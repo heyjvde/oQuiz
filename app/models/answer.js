@@ -11,7 +11,7 @@ Answer.init({
     // on ne défini pas ici les attributs qui servent à faire des associations (ici: questions_id)
 },
 {
-    Sequelize: client,
+    sequelize: client,
     tableName: "answers",
     underscored: true,
 });

@@ -28,7 +28,7 @@ Level.init({
     // dans le 2ème objet passe les options de connexion (la bdd active, le nom de la table, etc)
     // https://sequelize.org/v5/manual/models-definition.html#configuration
     //* seul paramètre OBLIGATOIRE: la connexion à la bdd
-    Sequelize: client,
+    sequelize: client,
 
     // si on ne passe rien d'autre, sequelize va déduire les noms de tables, c'est pratique mais ici nos tables ne portent pas exactement les noms de leurs classes
     // https://sequelize.org/master/manual/model-basics.html

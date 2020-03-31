@@ -10,7 +10,7 @@ Tag.init({
     status: Sequelize.INTEGER,
 },
 {
-    Sequelize: client,
+    sequelize: client,
     tableName: "tags",
     underscored: true,
 });

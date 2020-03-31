@@ -11,7 +11,7 @@ Quiz.init({
     status: Sequelize.INTEGER,
 },
 {
-    Sequelize: client,
+    sequelize: client,
     tableName: "quizzes",
     underscored: true,
 });
