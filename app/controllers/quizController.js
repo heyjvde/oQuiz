@@ -1,7 +1,7 @@
 const { Answer, Level, Question, Quiz, Tag, User } = require('../models/associations');
 
 const quizzController = {
-  quizQuestions: (req, res) => {
+  quizPage: (req, res, next) => {
     const quizId = req.params.id;
 
     Quiz.findByPk(quizId, {
@@ -11,8 +11,14 @@ const quizzController = {
         {association: "questions", include:["possibleAnswers", "level"]}
       ]
     }).then(quiz => {
-      res.render("quiz", {quiz});
+      // pour sequelize un id inconnu n'est pas une erreur, on doit donc ajouter une condition dans le cas où on irait à la page d'un quiz inexistant
+      if(!quiz){
+        next();
+      }else{
+        res.render("quiz", {quiz});
+      };
     }).catch(err => {
+      console.trace(err);
       res.status(500).render('error', {err});
     });
   },

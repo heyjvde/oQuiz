@@ -3,11 +3,6 @@ const Sequelize = require("sequelize");
 const client = require("../database");
 
 class User extends Sequelize.Model{
-    email;
-    password;
-    firstname;
-    lastname;
-
     getFullName() {
         return this.firstname+" "+this.lastname;
     };

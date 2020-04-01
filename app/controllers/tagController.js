@@ -1,17 +1,16 @@
 const { Answer, Level, Question, Quiz, Tag, User } = require('../models/associations');
 
 const tagController = {
-    getAllTags: (req, res) => {
-        Tag.findAll({
-
-        }).then(tags => {
+    tagsPage: (req, res, next) => {
+        Tag.findAll().then(tags => {
             res.render("tags", {tags});
         }).catch(err => {
+            console.trace(err);
             res.status(500).render('error', {err});
         });
     },
 
-    getOneTag: (req, res) => {
+    quizzesByTag: (req, res, next) => {
         const tagId = req.params.id;
         Tag.findByPk(tagId, {
             include: [{
@@ -19,8 +18,13 @@ const tagController = {
                 include: ["tags", "author"]
             }]
         }).then(tag => {
-            res.render("tag", {tag});
+            if(!tag){
+                next();
+            }else{
+                res.render("tag", {tag});
+            };
         }).catch(err => {
+            console.trace(err);
             res.status(500).render('error', {err});
         });
     },

@@ -4,7 +4,7 @@
         <h2 class="h1 display-4"><%=quiz.title%></h2>
         <p class="lead"><%=quiz.description%></p>
         <p class="font-weight-bold">par <%=quiz.author.getFullName()%></p>
-        <p class="lead">X questions</p>
+        <p class="lead"><%=quiz.questions.length%> questions</p>
     </div>
 
     <div class="row">
@@ -12,7 +12,7 @@
         <% for (let tag of quiz.tags) { %>
         
         <div class="col-3 p-4 text-center">
-            <a class="btn btn-block btn-lg tag tag--<%=tag.name%>" href="/tag/<%=tag.id%>">
+            <a class="btn btn-block btn-lg tag tag--<%=tag.name.toLowerCase()%>" href="/tag/<%=tag.id%>">
                 <%=tag.name%>
             </a>
         </div>
@@ -24,16 +24,15 @@
 
         <% for(let question of quiz.questions){ %>
         <div class="col-12">
-            <label class="badge level level--<%=question.level.name%>"><%=question.level.name%></label>
+            <label class="badge level level--<%=question.level.name.toLowerCase()%>"><%=question.level.name%></label>
             <h4>
                 <%=question.question%>
             </h4>
+            <ol>
                 <% for (let answer of question.possibleAnswers){ %>
-            <ul>
-                <li><%=answer.description%></li>
-            </ul>
+                    <li><%=answer.description%></li>
                 <% } %>
-            
+            </ol>
         </div>
         <% } %>
 
