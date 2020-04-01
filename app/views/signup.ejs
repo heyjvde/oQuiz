@@ -5,6 +5,12 @@
         <p class="lead">Inscrivez vous pour profiter des quizz !</p>
     </div>
 
+    <% if(locals.errors){ %>
+        <% for(let error of errors){ %>
+            <div class="alert bg-danger"><%=error%></div>
+        <% } %>
+    <% } %>
+
     <form action="/signup" method="POST" class="form-signin">
 
         <div class="form-label-group">
