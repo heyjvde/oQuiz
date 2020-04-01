@@ -21,6 +21,8 @@ router.route("/login")
     .get(authController.loginForm)
     .post(authController.loginAction);
 
+router.get("/logout", authController.logout);
+
 // en tout dernier, on gère les 404 (on arrivera ici uniquement si aucune route ne correspond à l'url ou qu'un controller appelle next())
 //? on utilise router.use() pour que ce soit utilisable à chaque requête
 router.use(mainController.notFound);

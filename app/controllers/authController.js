@@ -75,12 +75,35 @@ const authController = {
 
     loginAction: (req, res, next) => {
         // 1. tenter de récupérer un user via son email
+        User.findOne({
+            where: {
+                email: req.body.email
+            },
+        }).then(user => {
+            if(!user){
+                return res.render("login", {error: "Cet email n'existe pas"});
+            };
 
+            // 2. comparer le mdp fourni au hash stocké dans la bdd
+            const validPassword = bcrypt.compareSync(req.body.password, user.password);
+            if(!validPassword){
+                return res.render("login", {error: "Le mot de passe est incorrect"});
+            };
 
-        // 2. comparer le mdp fourni au hash stocké dans la bdd
+            // 3. si tout va bien (email et mdp corrects)  on enregistre l'utilisateur dans la session
+            req.session.user = user;
 
+            // 4. enfin on redirige vers la page d'accueil
+            res.redirect("/");
+        }).catch(err => {
+            console.trace(err);
+            res.render("error", {err});
+        });
+    },
 
-        // 3. si tout va bien (email et mdp corrects)  on enregistre l'utilisateur dans la session
+    logout: (req, res, next) => {
+        delete req.session.user;
+        res.redirect("/");
     },
 };
 
