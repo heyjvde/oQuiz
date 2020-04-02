@@ -1,4 +1,4 @@
-const { Quiz } = require('../models/associations');
+const { Quiz } = require("../models");
 
 const quizzController = {
   quizPage: (req, res, next) => {

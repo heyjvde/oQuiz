@@ -1,6 +1,6 @@
 // le but de ce middleWare est de vérifier si un utilisateur est loggé (donc enregistré dans la session), et si c'est le cas le rendre disponible dans res.locals
 
-const { User } = require("../models/associations");
+const { User } = require("../models");
 
 const userMiddleware = (req, res, next) => {
     if(req.session.user){
