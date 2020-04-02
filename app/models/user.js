@@ -14,6 +14,7 @@ User.init({
     firstname: Sequelize.TEXT,
     lastname: Sequelize.TEXT,
     status: Sequelize.INTEGER,
+    role: Sequelize.TEXT,
 },
 {
     sequelize: client,

@@ -29,10 +29,7 @@ app.use(session({
   },
 }));
 
-// notre middleware pour transférer les info de session vers locals
-const userMiddleware = require("./app/middleware/userMiddleware");
-app.use(userMiddleware);
-
+// on pense bien à appeler router en dernier pour que tous les middlewares y soient bien attachés
 app.use(router);
 
 app.listen(PORT, () => {
