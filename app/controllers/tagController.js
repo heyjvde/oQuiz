@@ -1,32 +1,31 @@
 const { Tag } = require("../models");
 
 const tagController = {
-    tagsPage: (req, res, next) => {
-        Tag.findAll().then(tags => {
+    tagsPage: async (req, res, next) => {
+        try{
+            const tags = await Tag.findAll();
             res.render("tags", {tags});
-        }).catch(err => {
+        }catch(err){
             console.trace(err);
             res.status(500).render('error', {err});
-        });
+        };
     },
 
-    quizzesByTag: (req, res, next) => {
-        const tagId = req.params.id;
-        Tag.findByPk(tagId, {
-            include: [{
-                association: "quizzes", 
-                include: ["tags", "author"]
-            }]
-        }).then(tag => {
-            if(!tag){
-                next();
-            }else{
-                res.render("tag", {tag});
-            };
-        }).catch(err => {
+    quizzesByTag: async (req, res, next) => {
+        try{
+            const tagId = req.params.id;
+            const tag = await Tag.findByPk(tagId, {
+                include: [{
+                    association: "quizzes", 
+                    include: ["tags", "author"]
+                }]
+            });
+
+            res.render("tag", {tag});
+        }catch(err){
             console.trace(err);
             res.status(500).render('error', {err});
-        });
+        };
     },
 };
 
