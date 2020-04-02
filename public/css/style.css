@@ -1,15 +1,15 @@
 .btn-primary, .btn-primary:not(:disabled):not(.disabled).active, .btn-primary:not(:disabled):not(.disabled):active, .show>.btn-primary.dropdown-toggle, .btn-primary.focus, .btn-primary:focus {
-    background-color: #f0f;
-    border-color: rgb(199, 0, 199);
+    background-color: #6caeac;
+    border-color: #6caeac;
   }
   
   .btn-primary:hover {
-    background-color: rgb(199, 0, 199);
-    border-color: rgb(151, 0, 151);
+    background-color: #6caeac;
+    border-color: #6caeac;
   }
   
   .bg-primary {
-    background-color: #f0f!important;
+    background-color: #6caeac!important;
   }
   
   .form-signin {
